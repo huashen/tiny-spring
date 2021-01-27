@@ -29,7 +29,6 @@ public class DynamicProxyTest {
 	@Before
 	public void setup() {
 		WorldService worldService = new WorldServiceImpl();
-
 		advisedSupport = new AdvisedSupport();
 		TargetSource targetSource = new TargetSource(worldService);
 		WorldServiceInterceptor methodInterceptor = new WorldServiceInterceptor();
