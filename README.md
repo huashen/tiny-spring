@@ -52,7 +52,7 @@ xiong-tiny-spring是简化版的spring框架，能帮助你快速熟悉spring源
 
 #### bug fix
 
-* [没有为代理bean设置属性(discovered and fixed by kerwin89)](#bug fix：没有为代理bean设置属性（discovered and fixed by @kerwin89）)
+* [没有为代理bean设置属性(discovered and fixed by kerwin89)](#bug-fix)
 
 
 ## 贡献
@@ -1278,8 +1278,9 @@ public class AutowiredAnnotationTest {
 }
 ```
 
-## bug fix：没有为代理bean设置属性（discovered and fixed by @kerwin89）
+## bug-fix
 
+没有为代理bean设置属性（discovered and fixed by @kerwin89）
 > 分支: populate-proxy-bean-with-property-values
 
 问题现象：没有为代理bean设置属性
