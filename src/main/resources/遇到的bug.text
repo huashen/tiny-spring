@@ -1,0 +1,7 @@
+# 实现aop功能时少继承一个借口
+
+具体忘了
+
+# 实现循环依赖时
+报错 Unsupported source type: class com.sun.proxy.$Proxy2
+没有把AdvisedSupport的proxyTargetClass属性设置为true

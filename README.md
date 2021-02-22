@@ -52,7 +52,7 @@ xiong-tiny-spring是简化版的spring框架，能帮助你快速熟悉spring源
 
 #### bug fix
 
-* [没有为代理bean设置属性(discovered and fixed by kerwin89)](#bug-fix)
+* [没有为代理bean设置属性](#bug-fix)
 
 
 ## 贡献
@@ -67,8 +67,8 @@ xiong-tiny-spring是简化版的spring框架，能帮助你快速熟悉spring源
 
 - [《Spring源码深度解析》](https://book.douban.com/subject/25866350/)
 - [《精通Spring 4.x》](https://book.douban.com/subject/26952826/)
-- 主要代码来自[mini-spring](https://github.com/DerekYRC/mini-spring)
-
+- [mini-spring](https://github.com/DerekYRC/mini-spring)
+- [tiny-spring](https://github.com/code4craft/tiny-spring)
 ---
 
 
@@ -77,7 +77,6 @@ xiong-tiny-spring是简化版的spring框架，能帮助你快速熟悉spring源
 
  ## 最简单的bean容器
 
- > 分支：simple-bean-container
 
 定义一个简单的bean容器BeanFactory，内部包含一个map用以保存bean，只有注册bean和获取bean两个方法
 
@@ -120,7 +119,6 @@ public class SimpleBeanContainerTest {
 
 ## BeanDefinition和BeanDefinitionRegistry
 
-> 分支：bean-definition-and-bean-definition-registry
 
 主要增加如下类：
 
@@ -130,7 +128,7 @@ public class SimpleBeanContainerTest {
 
 bean容器作为BeanDefinitionRegistry和SingletonBeanRegistry的实现类，具备两者的能力。向bean容器中注册BeanDefintion后，使用bean时才会实例化。
 
-![](/Users/wardseptember/Documents/git_repos/mini-spring/assets/bean-definition-and-bean-definition-registry.png)
+![](./assets/bean-definition-and-bean-definition-registry.png)
 
 测试：
 
@@ -158,11 +156,10 @@ class HelloService {
 
 ## Bean实例化策略InstantiationStrategy
 
-> 分支：instantiation-strategy
 
 现在bean是在AbstractAutowireCapableBeanFactory.doCreateBean方法中用beanClass.newInstance()来实例化，仅适用于bean有无参构造函数的情况。
 
-![](/Users/wardseptember/Documents/git_repos/mini-spring/assets/instantiation-strategy.png)
+![](./assets/instantiation-strategy.png)
 
 针对bean的实例化，抽象出一个实例化策略的接口InstantiationStrategy，有两个实现类：
 
@@ -171,7 +168,6 @@ class HelloService {
 
 ## 为bean填充属性
 
-> 分支：populate-bean-with-property-values
 
 在BeanDefinition中增加和bean属性对应的PropertyValues，实例化bean之后，为bean填充属性(AbstractAutowireCapableBeanFactory#applyPropertyValues)。
 
@@ -199,7 +195,6 @@ public class PopulateBeanWithPropertyValuesTest {
 
 ## 为bean注入bean
 
-> 分支：populate-bean-with-bean
 
 增加BeanReference类，包装一个bean对另一个bean的引用。实例化beanA后填充属性时，若PropertyValue#value为BeanReference，引用beanB，则先去实例化beanB。
 由于不想增加代码的复杂度提高理解难度，暂时不支持循环依赖，后面会在高级篇中解决该问题。
@@ -267,11 +262,10 @@ public class PopulateBeanWithPropertyValuesTest {
 
 ## 资源和资源加载器
 
-> 分支：resource-and-resource-loader
 
 Resource是资源的抽象和访问接口，简单写了三个实现类
 
-![](/Users/wardseptember/Documents/git_repos/mini-spring/assets/resource.png)
+![](./assets/resource.png)
 
 - FileSystemResource，文件系统资源的实现类
 - ClassPathResource，classpath下资源的实现类
@@ -315,7 +309,6 @@ public class ResourceAndResourceLoaderTest {
 
 ## 在xml文件中定义bean
 
-> 分支：xml-file-define-bean
 
 有了资源加载器，就可以在xml格式配置文件中声明式地定义bean的信息，资源加载器读取xml文件，解析出bean的信息，然后往容器中注册BeanDefinition。
 
@@ -325,7 +318,7 @@ BeanDefinitionReader是读取bean定义信息的抽象接口，XmlBeanDefinition
 
 为了方便后面的讲解和功能实现，并且尽量保持和spring中BeanFactory的继承层次一致，对BeanFactory的继承层次稍微做了调整。
 
-![](/Users/wardseptember/Documents/git_repos/mini-spring/assets/xml-file-define-bean.png)
+![](./assets/xml-file-define-bean.png)
 
 测试：
 bean定义文件spring.xml
@@ -375,7 +368,6 @@ public class XmlFileDefineBeanTest {
 
 ## BeanFactoryPostProcess和BeanPostProcessor
 
-> 分支：bean-factory-post-processor-and-bean-post-processor
 
 BeanFactoryPostProcess和BeanPostProcessor是spring框架中具有重量级地位的两个接口，理解了这两个接口的作用，基本就理解spring的核心原理了。为了降低理解难度分两个小节实现。
 
@@ -442,7 +434,6 @@ public class BeanFactoryProcessorAndBeanPostProcessorTest {
 
 ## 应用上下文ApplicationContext
 
-> 分支：application-context
 
 应用上下文ApplicationContext是spring中较之于BeanFactory更为先进的IOC容器，ApplicationContext除了拥有BeanFactory的所有功能外，还支持特殊类型bean如上一节中的BeanFactoryPostProcessor和BeanPostProcessor的自动识别、资源加载、容器事件和监听器、国际化支持、单例bean自动初始化等。
 
@@ -452,13 +443,12 @@ BeanFactory是spring的基础设施，面向spring本身；而ApplicationContext
 
 从bean的角度看，目前生命周期如下：
 
-![](/Users/wardseptember/Documents/git_repos/mini-spring/assets/application-context-life-cycle.png)
+![](./assets/application-context-life-cycle.png)
 
 测试：见ApplicationContextTest
 
 ## bean的初始化和销毁方法
 
-> 分支：init-and-destroy-method
 
 在spring中，定义bean的初始化和销毁方法有三种方法：
 
@@ -476,7 +466,7 @@ BeanFactory是spring的基础设施，面向spring本身；而ApplicationContext
 
 到此为止，bean的生命周期如下：
 
-![](/Users/wardseptember/Documents/git_repos/mini-spring/assets/init-and-destroy-method.png)
+![](./assets/init-and-destroy-method.png)
 
 测试：
 init-and-destroy-method.xml
@@ -547,7 +537,6 @@ public class InitAndDestoryMethodTest {
 
 ## Aware接口
 
-> 分支：aware-interface
 
 Aware是感知、意识的意思，Aware接口是标记性接口，其实现子类能感知容器相关的对象。常用的Aware接口有BeanFactoryAware和ApplicationContextAware，分别能让其实现者感知所属的BeanFactory和ApplicationContext。
 
@@ -559,7 +548,7 @@ Aware是感知、意识的意思，Aware接口是标记性接口，其实现子�
 
 至止，bean的生命周期如下：
 
-![](/Users/wardseptember/Documents/git_repos/mini-spring/assets/aware-interface.png)
+![](./assets/aware-interface.png)
 
 测试：
 spring.xml
@@ -621,13 +610,12 @@ public class AwareInterfaceTest {
 
 ## bean作用域，增加prototype的支持
 
-> 分支：prototype-bean
 
 每次向容器获取prototype作用域bean时，容器都会创建一个新的实例。在BeanDefinition中增加描述bean的作用域的字段scope/singleton/prototype，创建prototype作用域bean时（AbstractAutowireCapableBeanFactory#doCreateBean），不往singletonObjects中增加该bean。prototype作用域bean不执行销毁方法，查看AbstractAutowireCapableBeanFactory#registerDisposableBeanIfNecessary方法。
 
 至止，bean的生命周期如下：
 
-![](/Users/wardseptember/Documents/git_repos/mini-spring/assets/prototype-bean.png)
+![](./assets/prototype-bean.png)
 
 测试：
 prototype-bean.xml
@@ -665,7 +653,6 @@ public class PrototypeBeanTest {
 
 ## FactoryBean
 
-> 分支：factory-bean
 
 FactoryBean是一种特殊的bean，当向容器获取该bean时，容器不是返回其本身，而是返回其FactoryBean#getObject方法的返回值，可通过编码方式定义复杂的bean。
 
@@ -730,7 +717,6 @@ public class FactoryBeanTest {
 
 ## 容器事件和事件监听器
 
-> 分支：event-and-event-listener
 
 ApplicationContext容器提供了完善的时间发布和时间监听功能。
 
@@ -782,7 +768,6 @@ org.springframework.test.common.event.ContextClosedEventListener
 
 ## 切点表达式
 
-> 分支：pointcut-expression
 
 Joinpoint，织入点，指需要执行代理操作的某个类的某个方法(仅支持方法级别的JoinPoint)；Pointcut是JoinPoint的表述方式，能捕获JoinPoint。
 
@@ -816,7 +801,6 @@ public class PointcutExpressionTest {
 
 ## 基于JDK的动态代理
 
-> 分支：jdk-dynamic-proxy
 
 AopProxy是获取代理对象的抽象接口，JdkDynamicAopProxy的基于JDK动态代理的具体实现。TargetSource，被代理对象的封装。MethodInterceptor，方法拦截器，是AOP Alliance的"公民"，顾名思义，可以拦截方法，可在被代理执行的方法前后增加代理行为。
 
@@ -845,7 +829,6 @@ public class DynamicProxyTest {
 
 ## 基于CGLIB的动态代理
 
-> 分支：cglib-dynamic-proxy
 
 基于CGLIB的动态代理实现逻辑也比较简单，查看CglibAopProxy。与基于JDK的动态代理在运行期间为接口生成对象的代理对象不同，基于CGLIB的动态代理能在运行期间动态构建字节码的class文件，为类生成子类，因此被代理类不需要继承自任何接口。
 
@@ -879,7 +862,6 @@ public class DynamicProxyTest {
 
 ## AOP代理工厂
 
-> 分支：proxy-factory
 
 增加AOP代理工厂ProxyFactory，由AdvisedSupport#proxyTargetClass属性决定使用JDK动态代理还是CGLIB动态代理。
 
@@ -920,7 +902,6 @@ public class DynamicProxyTest {
 
 ## 几种常用的Advice：BeforeAdvice/AfterAdvice/AfterReturningAdvice/ThrowsAdvice...
 
-> 分支： common-advice
 
 Spring将AOP联盟中的Advice细化出各种类型的Advice，常用的有BeforeAdvice/AfterAdvice/AfterReturningAdvice/ThrowsAdvice，我们可以通过扩展MethodInterceptor来实现。
 
@@ -974,7 +955,6 @@ public class DynamicProxyTest {
 
 ## PointcutAdvisor：Pointcut和Advice的组合
 
-> 分支：pointcut-advisor
 
 Advisor是包含一个Pointcut和一个Advice的组合，Pointcut用于捕获JoinPoint，Advice决定在JoinPoint执行某种操作。实现了一个支持aspectj表达式的AspectJExpressionPointcutAdvisor。
 
@@ -1012,7 +992,6 @@ public class DynamicProxyTest {
 
 ## 动态代理融入bean生命周期
 
-> 分支：auto-proxy
 
 结合前面讲解的bean的生命周期，BeanPostProcessor处理阶段可以修改和替换bean，正好可以在此阶段返回代理对象替换原对象。不过我们引入一种特殊的BeanPostProcessor——InstantiationAwareBeanPostProcessor，如果InstantiationAwareBeanPostProcessor处理阶段返回代理对象，会导致短路，不会继续走原来的创建bean的流程，具体实现查看AbstractAutowireCapableBeanFactory#resolveBeforeInstantiation。
 
@@ -1020,7 +999,7 @@ DefaultAdvisorAutoProxyCreator是处理横切逻辑的织入返回代理对象�
 
 至此，bean的生命周期如下：
 
-![](/Users/wardseptember/Documents/git_repos/mini-spring/assets/auto-proxy.png)
+![](./assets/auto-proxy.png)
 
 测试：
 auto-proxy.xml
@@ -1072,7 +1051,6 @@ public class AutoProxyTest {
 
 ## PropertyPlaceholderConfigurer
 
-> 分支：property-placeholder-configurer
 
 经常需要将配置信息配置在properties文件中，然后在XML文件中以占位符的方式引用。
 
@@ -1121,7 +1099,6 @@ public class PropertyPlaceholderConfigurerTest {
 
 ## 包扫描
 
-> 分支：package-scan
 
 结合bean的生命周期，包扫描只不过是扫描特定注解的类，提取类的相关信息组装成BeanDefinition注册到容器中。
 
@@ -1168,7 +1145,6 @@ public class PackageScanTest {
 
 ## @Value注解
 
-> 分支：value-annotation
 
 注解@Value和@Autowired通过BeanPostProcessor处理。InstantiationAwareBeanPostProcessor增加postProcessPropertyValues方法，在bean实例化之后设置属性之前执行，查看AbstractAutowireCapableBeanFactory#doCreateBean方法。
 
@@ -1228,7 +1204,6 @@ public class ValueAnnotationTest {
 
 ## @Autowired注解
 
-> 分支：autowired-annotation
 
 @Autowired注解的处理见AutowiredAnnotationBeanPostProcessor#postProcessPropertyValues
 
@@ -1281,7 +1256,6 @@ public class AutowiredAnnotationTest {
 ## bug-fix
 
 没有为代理bean设置属性（discovered and fixed by @kerwin89）
-> 分支: populate-proxy-bean-with-property-values
 
 问题现象：没有为代理bean设置属性
 
@@ -1293,7 +1267,7 @@ public class AutowiredAnnotationTest {
 
 至此，bean的生命周期比较完整了，如下：
 
-![](/Users/wardseptember/Documents/git_repos/mini-spring/assets/populate-proxy-bean-with-property-values.png)
+![](./assets/populate-proxy-bean-with-property-values.png)
 
 测试：
 populate-proxy-bean-with-property-values.xml
@@ -1360,7 +1334,6 @@ public class AutoProxyTest {
 
 ## 类型转换（一）
 
-> 分支：type-conversion-first-part
 
 spring在org.springframework.core.convert.converter包中定义了三种类型转换器接口：Converter、ConverterFactory、GenericConverter。
 
@@ -1492,7 +1465,6 @@ ConversionService是类型转换体系的核心接口，将以上三种类型转
 
 ## 类型转换（二）
 
-> 分支：type-conversion-second-part
 
 上一节实现了spring中的类型转换体系，本节将类型转换的能力整合到容器中。
 
@@ -1574,3 +1546,63 @@ public class TypeConversionSecondPartTest {
 }
 ```
 
+##解决循环依赖问题（一）：没有代理对象
+
+虽然放在高级篇，其实解决循环依赖问题的方法非常简单。
+
+先理解spring中为什么会有循环依赖的问题。比如如下的代码
+
+public class A {
+
+	private B b;
+
+	//getter and setter
+}
+public class B {
+
+	private A a;
+
+	//getter and setter
+}
+<beans>
+    <bean id="a" class="org.springframework.test.bean.A">
+        <property name="b" ref="b"/>
+    </bean>
+    <bean id="b" class="org.springframework.test.bean.B">
+        <property name="a" ref="a"/>
+    </bean>
+</beans>
+A依赖B，B又依赖A，循环依赖。容器加载时会执行依赖流程：
+
+实例化A，发现依赖B，然后实例化B
+实例化B，发现依赖A，然后实例化A
+实例化A，发现依赖B，然后实例化B
+...
+死循环直至栈溢出。
+
+解决该问题的关键在于何时将实例化后的bean放进容器中，设置属性前还是设置属性后。现有的执行流程，bean实例化后并且设置属性后会被放进singletonObjects单例缓存中。如果我们调整一下顺序，当bean实例化后就放进singletonObjects单例缓存中，提前暴露引用，然后再设置属性，就能解决上面的循环依赖问题，执行流程变为：
+
+步骤一：getBean(a)，检查singletonObjects是否包含a，singletonObjects不包含a，实例化A放进singletonObjects，设置属性b，发现依赖B，尝试getBean(b)
+步骤二：getBean(b)，检查singletonObjects是否包含b，singletonObjects不包含a，实例化B放进singletonObjects，设置属性a，发现依赖A，尝试getBean(a)
+步骤三：getBean(a)，检查singletonObjects是否包含a，singletonObjects包含a，返回a
+步骤四：步骤二中的b拿到a，设置属性a，然后返回b
+步骤五：步骤一种的a拿到b，设置属性b，然后返回a
+可见调整bean放进singletonObjects（人称一级缓存）的时机到bean实例化后即可解决循环依赖问题。但为了和spring保持一致，我们增加一个二级缓存earlySingletonObjects，在bean实例化后将bean放进earlySingletonObjects中（见AbstractAutowireCapableBeanFactory#doCreateBean方法第6行），getBean()时检查一级缓存singletonObjects和二级缓存earlySingletonObjects中是否包含该bean，包含则直接返回（见AbstractBeanFactory#getBean第1行）。
+
+单测见CircularReferenceWithoutProxyBeanTest#testCircularReference。
+
+增加二级缓存，不能解决有代理对象时的循环依赖。原因是放进二级缓存earlySingletonObjects中的bean是实例化后的bean，而放进一级缓存singletonObjects中的bean是代理对象（代理对象在BeanPostProcessor#postProcessAfterInitialization中返回），两个缓存中的bean不一致。比如上面的例子，如果A被代理，那么B拿到的a是实例化后的A，而a是被代理后的对象，即b.getA() != a，见单测
+
+下一节填坑。
+
+## 解决循环依赖问题（二）：有代理对象
+
+解决有代理对象时的循环依赖问题，需要提前暴露代理对象的引用，而不是暴露实例化后的bean的引用（这是上节的遗留问题的原因，应该提前暴露A的代理对象的引用）。
+
+spring中用singletonFactories（一般称第三级缓存）解决有代理对象时的循环依赖问题。在实例化后提前暴露代理对象的引用（见AbstractAutowireCapableBeanFactory#doCreateBean方法第6行）。
+
+getBean()时依次检查一级缓存singletonObjects、二级缓存earlySingletonObjects和三级缓存singletonFactories中是否包含该bean。如果三级缓存中包含该bean，则挪至二级缓存中，然后直接返回该bean。见AbstractBeanFactory#getBean方法第1行。
+
+最后将代理bean放进一级缓存singletonObjects，见AbstractAutowireCapableBeanFactory第104行。
+
+单测见CircularReferenceWithProxyBeanTest。

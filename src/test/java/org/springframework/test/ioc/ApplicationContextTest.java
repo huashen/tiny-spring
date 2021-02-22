@@ -19,7 +19,6 @@ public class ApplicationContextTest {
 
 		Person person = applicationContext.getBean("person", Person.class);
 		System.out.println(person);
-		System.out.println(person.getCar() + "111111111");
 		//name属性在CustomBeanFactoryPostProcessor中被修改为ivy
 		assertThat(person.getName()).isEqualTo("ivy");
 
@@ -27,6 +26,5 @@ public class ApplicationContextTest {
 		System.out.println(car);
 		//brand属性在CustomerBeanPostProcessor中被修改为lamborghini
 		assertThat(car.getBrand()).isEqualTo("lamborghini");
-
 	}
 }

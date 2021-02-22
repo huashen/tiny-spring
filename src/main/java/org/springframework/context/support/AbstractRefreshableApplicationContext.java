@@ -1,7 +1,6 @@
 package org.springframework.context.support;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
 /**
@@ -10,10 +9,10 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
  */
 public abstract class AbstractRefreshableApplicationContext extends AbstractApplicationContext {
 
-    private ConfigurableListableBeanFactory beanFactory;
+    private DefaultListableBeanFactory beanFactory;
 
     @Override
-    public ConfigurableListableBeanFactory getBeanFactory() {
+    public DefaultListableBeanFactory getBeanFactory() {
         return beanFactory;
     }
 

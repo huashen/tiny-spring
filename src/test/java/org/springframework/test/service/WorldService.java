@@ -9,5 +9,4 @@ public interface WorldService {
 	void explode();
 
 	String getName();
-
 }

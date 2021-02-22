@@ -1,7 +1,6 @@
 package org.springframework.test.aop;
 
 import org.junit.Test;
-import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.service.WorldService;
 
@@ -16,11 +15,6 @@ public class AutoProxyTest {
 	@Test
 	public void testAutoProxy() throws Exception {
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:auto-proxy.xml");
-
-		DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = applicationContext.getBean(DefaultAdvisorAutoProxyCreator.class);
-		System.out.println(defaultAdvisorAutoProxyCreator);
-
-
 
 		//获取代理对象
 		WorldService worldService = applicationContext.getBean("worldService", WorldService.class);

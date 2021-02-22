@@ -2,10 +2,7 @@ package org.springframework.test.ioc;
 
 import cn.hutool.core.io.IoUtil;
 import org.junit.Test;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.*;
 
 import java.io.InputStream;
 

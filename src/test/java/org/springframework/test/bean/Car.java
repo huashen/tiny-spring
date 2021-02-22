@@ -19,7 +19,6 @@ public class Car {
 	@Value("${brand}")
 	private String brand;
 
-
 	public String getBrand() {
 		return brand;
 	}
