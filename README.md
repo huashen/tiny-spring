@@ -5,7 +5,7 @@
 
 ## 关于
 
-xiong-tiny-spring是简化版的spring框架，能帮助你快速熟悉spring源码和掌握spring的核心原理。抽取了spring的核心逻辑，代码极度简化，保留spring的核心功能，如IoC和AOP、资源加载器、事件监听器、类型转换、容器扩展点、bean生命周期和作用域、应用上下文等核心功能。
+tiny-spring是简化版的spring框架，能帮助你快速熟悉spring源码和掌握spring的核心原理。抽取了spring的核心逻辑，代码极度简化，保留spring的核心功能，如IoC和AOP、资源加载器、事件监听器、类型转换、容器扩展点、bean生命周期和作用域、应用上下文等核心功能。
 
 如果本项目能帮助到你，请给个**STAR，谢谢！！！**
 
@@ -1546,7 +1546,8 @@ public class TypeConversionSecondPartTest {
 }
 ```
 
-##解决循环依赖问题（一）：没有代理对象
+## 解决循环依赖问题
+解决循环依赖问题（一）：没有代理对象
 
 虽然放在高级篇，其实解决循环依赖问题的方法非常简单。
 
